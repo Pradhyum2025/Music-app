@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="music-solid.svg" type="image/x-icon">
+</head>
+<body>
+    <!-- <h1>play Audio</h1> -->
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img class="song-img" src="poster/perfect.jpg" alt="music_picture">
+            <h1 id="name">Perfect song</h1>
+            <p id="desc">Ed Sheeran lyrics</p>
+
+            <audio id="song">
+                 <source id="songSrc" src="AudioFile/Perfect - Ed Sheeran(Pagalworld.skin).mp3" type="audio/mpeg">
+                </audio>
+                    <input type="range" value="0" id="progress">
+
+                <div class="controls">
+                    <div id="backward"><i class="fa-solid fa-backward"></i></div>
+                    <div><i class="fa-solid fa-play" id="ctrIcon"></i></div>
+                    <div id="forward"><i class="fa-solid fa-forward"></i></div>
+                </div>
+        </div>
+    </div>
+
+    <script>
+
+        let songInfo=[
+            {
+                name:"Perfect song",
+                description:"Ed Sheeran lyrics",
+                img:"perfect.jpg",
+                link:"Perfect - Ed Sheeran(Pagalworld.skin).mp3"
+            },
+            {
+                name:"Baby",
+                description:"Justin Birber baby song",
+                img:"justinbieberCard.jpg",
+                link:"Baby(PagalWorld.com.so) (1).mp3"
+
+            },
+            {
+                name:"Leja leja re..",
+                description:"Dhavni Bhanushali ",
+                img:"thumb-Leja Re.png",
+                link:"Leja Leja Re(PagalWorld.com.so).mp3"
+
+            },
+            {
+                name:"Lehanga Song",
+                description:"Jass Manak",
+                img:"lenga song.jpg",
+                link:"Lehanga(PagalWorld.com.so).mp3"
+
+            },
+            {
+                name:"Vaste Song",
+                description:"Dhvani Bhanushali, Nikhil D’Souza",
+                img:"vaste song dhavni.jpg",
+                link:"Vaaste(PagalWorld.com.so).mp3"
+
+            },
+            {
+                name:"Katu kese ratah",
+                description:"Shershaah ,Sidarth Kiara love",
+                img:"katu kese raaten sajana.jpg",
+                link:"Katu Kaise Rahta(PagalWorld.com.so).mp3"
+
+            },
+            {
+                name:"Lut gaye",
+                description:"Blockbuster Hits - by Jubin Nautiyal",
+                img:"Lut-Gaye-Feat-Emraan-Hashmi--Hindi.jpg",
+                link:"Kutti Mohabbat Ne(PagalWorld.com.so).mp3"
+            },
+            {
+                name:"Faded",
+                description:"Alan Walker, Iselin Solheim",
+                img:"fadedSong.jpg",
+                link:"Faded(PagalWorld.com.so).mp3"
+            },
+            {
+                name:"Love me like you do",
+                description:"Ellie Goulding’s Love Me like You Do",
+                img:"ellie-goulding-love-me-like-you-do-song.jpg",
+                link:"Love Me Like You Do(PagalWorld.com.so).mp3"
+            },
+            {
+                name:"Alone",
+                description:"Alan Walker, Ava Max",
+                img:"aloneSong.jpg",
+                link:"Alone(PagalWorld.com.so).mp3"
+            },
+            {
+                name:"Jhumka song",
+                description:"Ranveer Singh, Alia Bhatt",
+                img:"jhumka.jpg",
+                link:"Jhumka Gira Re Bareli Ke Bazaar Mein(PagalWorld.com.so).mp3"
+            }
+
+        ];
+
+
+        let progress=document.getElementById("progress"); 
+        let song=document.getElementById("song");
+        let ctrIcon=document.getElementById("ctrIcon");
+
+        song.onloadedmetadata=function(){
+            progress.max= song.duration;
+            progress.value=song.currentTime;
+        }
+
+        function playPause(){
+            if(ctrIcon.classList.contains("fa-pause")){
+                    song.pause();
+                    ctrIcon.classList.remove("fa-pause");
+                    ctrIcon.classList.add("fa-play");
+                   
+            }else{
+                song.play();
+                ctrIcon.classList.remove("fa-play");
+                ctrIcon.classList.add("fa-pause");
+            }
+        }
+
+        ctrIcon.addEventListener("click",playPause);
+        
+        if(song.play()){
+            setInterval(()=>{
+                progress.value=song.currentTime;
+            },500);
+        }
+            
+        progress.onchange =function(){
+            song.play();
+            song.currentTime=progress.value;
+            ctrIcon.classList.add("fa-pause");
+            ctrIcon.classList.remove("fa-play");
+            console.log(ctrIcon.classList);
+        }
+        
+
+
+
+         //backward and forward music paly
+         let backward=document.querySelector("#backward");
+         let  songImg=document.querySelector(".song-img");
+         let  name=document.querySelector("#name");
+         let  desc=document.querySelector("#desc")
+         // let  songSrc=document.querySelector("#songSrc")
+         let next=0;  
+
+         //backward button eventlistener
+         backward.addEventListener("click",()=>{
+             backward.classList.add("flash");
+             next=((songInfo.length)+next-1)%songInfo.length;
+             let info=songInfo[next];
+            //  console.log(next);
+             //image
+             songImg.setAttribute("src",`poster/${info.img}`); 
+             // console.log(info.name)
+             name.innerHTML=info.name;   
+             // console.log(info.description);
+             desc.innerHTML=info.description;
+             ///load new song
+             let  songSrc=document.querySelector("#songSrc");
+             songSrc.src =`AudioFile/${info.link}`; 
+             song.load(); 
+             song.play();
+            ctrIcon.classList.remove("fa-play");
+            ctrIcon.classList.add("fa-pause");
+            setTimeout(()=>{
+                backward.classList.remove("flash");
+            },400);
+            });
+            
+            let forward=document.querySelector("#forward");
+            //forward button eventlistener
+            forward.addEventListener("click",()=>{
+            forward.classList.add("flash");
+            next=(next+1)%songInfo.length;
+            let info=songInfo[next];
+            // console.log(info)
+            //image
+            songImg.setAttribute("src",`poster/${info.img}`);     
+            // console.log(info.name)
+            name.innerHTML=info.name;   
+            // console.log(info.description);
+            desc.innerHTML=info.description;
+            ///load new song
+            let  songSrc=document.querySelector("#songSrc");
+            songSrc.src =`AudioFile/${info.link}`; 
+            song.load(); 
+            song.play();
+            ctrIcon.classList.remove("fa-play");
+            ctrIcon.classList.add("fa-pause");
+            setTimeout(()=>{
+                forward.classList.remove("flash");
+            },400);
+        });
+
+
+        
+         
+    </script>
+</body>
+</html>
